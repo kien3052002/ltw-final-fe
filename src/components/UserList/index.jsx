@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Card, CardContent, Link, List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import fetchModel from "../../lib/fetchModelData";
 
 export default function UserList({ currentUser, refreshToken }) {
@@ -29,8 +37,15 @@ export default function UserList({ currentUser, refreshToken }) {
         <List dense>
           {users.map((user) => (
             <ListItem key={user._id} disablePadding>
-              <Link component={RouterLink} to={`/users/${user._id}`} underline="hover" sx={{ py: 0.75 }}>
-                <ListItemText primary={`${user.first_name} ${user.last_name}`} />
+              <Link
+                component={RouterLink}
+                to={`/users/${user._id}`}
+                underline="hover"
+                sx={{ py: 0.75 }}
+              >
+                <ListItemText
+                  primary={`${user.first_name} ${user.last_name}`}
+                />
               </Link>
             </ListItem>
           ))}

@@ -53,9 +53,9 @@ export default function UserPhotos({ userId, currentUser, refreshToken }) {
         <Card key={photo._id}>
           <CardContent>
             <img
-              src={`/images/${photo.file_name}`}
+              src={photo.base64}
               alt="uploaded"
-              style={{ maxWidth: "100%", borderRadius: 8 }}
+              style={{ maxWidth: "50%", borderRadius: 8 }}
             />
             <Typography sx={{ mt: 1 }} color="text.secondary">
               Posted: {formatDate(photo.date_time)}
@@ -69,7 +69,10 @@ export default function UserPhotos({ userId, currentUser, refreshToken }) {
                       {formatDate(comment.date_time)}
                     </Typography>
                     <Typography variant="body2">
-                      <Link component={RouterLink} to={`/users/${comment.user._id}`}>
+                      <Link
+                        component={RouterLink}
+                        to={`/users/${comment.user._id}`}
+                      >
                         {comment.user.first_name} {comment.user.last_name}
                       </Link>{" "}
                       - {comment.comment}
@@ -86,10 +89,16 @@ export default function UserPhotos({ userId, currentUser, refreshToken }) {
                   label="Add a comment"
                   value={commentInputs[photo._id] || ""}
                   onChange={(e) =>
-                    setCommentInputs((p) => ({ ...p, [photo._id]: e.target.value }))
+                    setCommentInputs((p) => ({
+                      ...p,
+                      [photo._id]: e.target.value,
+                    }))
                   }
                 />
-                <Button variant="contained" onClick={() => submitComment(photo._id)}>
+                <Button
+                  variant="contained"
+                  onClick={() => submitComment(photo._id)}
+                >
                   Post
                 </Button>
               </Stack>

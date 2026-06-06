@@ -1,7 +1,7 @@
-const BASE_URL = "";
+import { BE_URL } from "../App";
 
 export default async function fetchModel(url, options = {}) {
-  const response = await fetch(`${BASE_URL}${url}`, {
+  const response = await fetch(`${BE_URL}${url}`, {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,8 @@ export default async function fetchModel(url, options = {}) {
     : await response.text();
 
   if (!response.ok) {
-    const message = typeof body === "string" ? body : body.error || "Request failed";
+    const message =
+      typeof body === "string" ? body : body.error || "Request failed";
     const error = new Error(message);
     error.status = response.status;
     throw error;

@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { Box, CircularProgress, Grid } from "@mui/material";
 import TopBar from "./components/TopBar";
 import UserList from "./components/UserList";
@@ -22,6 +29,8 @@ function UserPhotosWrapper(props) {
   const { userId } = useParams();
   return <UserPhotos {...props} userId={userId} />;
 }
+
+export const BE_URL = "https://2dsc8m-8081.csb.app/".replace(/\/$/, "");
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -50,7 +59,10 @@ export default function App() {
   };
 
   const handleLogout = async () => {
-    await fetchModel("/admin/logout", { method: "POST", body: JSON.stringify({}) });
+    await fetchModel("/admin/logout", {
+      method: "POST",
+      body: JSON.stringify({}),
+    });
     setCurrentUser(null);
     navigate("/login");
   };
@@ -79,8 +91,16 @@ export default function App() {
         </Grid>
         <Grid size={{ xs: 12, md: 9 }}>
           <Routes>
-            <Route path="/login" element={<LoginRegister onLogin={handleLogin} />} />
-            <Route path="/" element={<Navigate to={currentUser ? "/users" : "/login"} replace />} />
+            <Route
+              path="/login"
+              element={<LoginRegister onLogin={handleLogin} />}
+            />
+            <Route
+              path="/"
+              element={
+                <Navigate to={currentUser ? "/users" : "/login"} replace />
+              }
+            />
             <Route
               path="/users"
               element={
@@ -101,7 +121,10 @@ export default function App() {
               path="/photos/:userId"
               element={
                 <ProtectedRoute currentUser={currentUser}>
-                  <UserPhotosWrapper currentUser={currentUser} refreshToken={refreshToken} />
+                  <UserPhotosWrapper
+                    currentUser={currentUser}
+                    refreshToken={refreshToken}
+                  />
                 </ProtectedRoute>
               }
             />

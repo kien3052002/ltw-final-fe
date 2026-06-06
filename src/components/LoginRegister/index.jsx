@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Alert, Button, Card, CardContent, Stack, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Card,
+  CardContent,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import fetchModel from "../../lib/fetchModelData";
 
 const emptyRegister = {
@@ -33,7 +41,10 @@ export default function LoginRegister({ onLogin }) {
   const doLogin = async () => {
     try {
       setError("");
-      const user = await fetchModel("/admin/login", { method: "POST", body: JSON.stringify(login) });
+      const user = await fetchModel("/admin/login", {
+        method: "POST",
+        body: JSON.stringify(login),
+      });
       onLogin(user);
     } catch (err) {
       setError(err.message);
@@ -48,7 +59,10 @@ export default function LoginRegister({ onLogin }) {
         throw new Error("Passwords do not match.");
       }
       const { confirm_password, ...payload } = register;
-      await fetchModel("/user", { method: "POST", body: JSON.stringify(payload) });
+      await fetchModel("/user", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
       setMessage("Registration successful. You can login now.");
       setRegister(emptyRegister);
     } catch (err) {
@@ -67,13 +81,17 @@ export default function LoginRegister({ onLogin }) {
             <TextField
               label="Login Name"
               value={login.login_name}
-              onChange={(e) => setLogin((p) => ({ ...p, login_name: e.target.value }))}
+              onChange={(e) =>
+                setLogin((p) => ({ ...p, login_name: e.target.value }))
+              }
             />
             <TextField
               label="Password"
               type="password"
               value={login.password}
-              onChange={(e) => setLogin((p) => ({ ...p, password: e.target.value }))}
+              onChange={(e) =>
+                setLogin((p) => ({ ...p, password: e.target.value }))
+              }
             />
             <Button variant="contained" onClick={doLogin}>
               Login
@@ -91,7 +109,9 @@ export default function LoginRegister({ onLogin }) {
                 label={registerFieldLabels[key]}
                 type={key.includes("password") ? "password" : "text"}
                 value={register[key]}
-                onChange={(e) => setRegister((p) => ({ ...p, [key]: e.target.value }))}
+                onChange={(e) =>
+                  setRegister((p) => ({ ...p, [key]: e.target.value }))
+                }
               />
             ))}
             <Button variant="outlined" onClick={doRegister}>
