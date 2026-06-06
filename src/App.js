@@ -30,7 +30,7 @@ function UserPhotosWrapper(props) {
   return <UserPhotos {...props} userId={userId} />;
 }
 
-export const BE_URL = "https://2dsc8m-8081.csb.app/".replace(/\/$/, "");
+export const BE_URL = "".replace(/\/$/, "");
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
